@@ -1,0 +1,46 @@
+https://www.cnblogs.com/hpcm/p/10870306.html
+
+python3.7 paramiko sftp 上传下载出现 UnicodeDecodeError: 'utf8' codec can't decode byte 0xb0 in position 7: ordinal not in range(128)
+错误信息:
+
+UnicodeDecodeError: 'utf8' codec can't decode byte 0xb0 in position 7: ordinal not in range(128)
+问题描述:
+
+在文件上传下载时候, 默认解码远程主机的目录名称为"utf8", 但是有奇葩的主机使用"gbk"的, 所以在解析的时候会出现问题,
+但是官方并没有提供设置encoding的api, 所以只能手动更改paramiko模块, 并且要求支持并发兼容
+问题解决:
+
+按 Ctrl+C 复制代码
+修改模块:  # paramiko/py3compat.py
+if PY2:
+　　xxxxx  # 由于我使用的是Python3, 这里的代码就不管了
+else:
+　　import threading  # 添加
+　　encoding = {}     # 添加
+　　def b(s):         # 修改此函数内容
+    　　"""cast unicode or bytes to bytes"""
+    　　if isinstance(s, bytes):
+   　　     return s
+   　　 elif isinstance(s, str):
+  　　      return s.encode(encoding.get(threading.currentThread().ident, "utf8"))
+  　　  else:
+   　　     raise TypeError("Expected unicode or bytes, got {!r}".format(s))
+
+　　def u(s):         # 修改此函数内容
+ 　　   """cast bytes or unicode to unicode"""
+  　　  if isinstance(s, bytes):
+    　　    coding = encoding.get(threading.currentThread().ident, None)
+     　　   if coding == "gbk":
+            　　r = s.decode(coding)
+      　　  else:
+     　　       try:
+                　　r = s.decode("gbk")
+               　　 encoding[threading.currentThread().ident] = "gbk"
+           　　 except UnicodeDecodeError:
+                　　r = s.decode("utf8")
+                　　encoding[threading.currentThread().ident] = "utf8"
+       　　 return r
+   　　 elif isinstance(s, str):
+      　　  return s
+    　　else:
+       　　 raise TypeError("Expected unicode or bytes, got {!r}".format(s))

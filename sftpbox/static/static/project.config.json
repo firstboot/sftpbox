@@ -1,0 +1,36 @@
+{
+    "debugMode": true,
+    "baseUrl": "http://localhost:8000",
+    "nav": {
+        "initTab": {
+            "editableTabsValue": "panelAllFiles",
+            "editableTabs": [{"title": "panel.panelAllFiles.label", "name": "panelAllFiles", "content": "测试"}]
+        },
+        "navMenus": [
+            {
+                "icon": "fa fa-files-o",
+                "title": "panel.panelAllFiles.label",
+                "name": "panelAllFiles",
+                "type": "menu"
+            },
+            {
+                "icon": "fa fa-share-alt",
+                "title": "panel.panelShareFiles.label",
+                "name": "panelShareFiles",
+                "type": "menu"
+            },
+            {
+                "icon": "fa fa-share-square-o",
+                "title": "panel.panelHistory.label",
+                "name": "panelHistory",
+                "type": "menu"
+            },
+            {
+                "icon": "fa fa-info-circle",
+                "title": "panel.panelSysInfo.label",
+                "name": "panelSysInfo",
+                "type": "menu"
+            }
+        ]
+    }
+}
