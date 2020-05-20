@@ -10,6 +10,18 @@ from starlette.responses import StreamingResponse
 from fastapi.responses import RedirectResponse
 from fastapi.responses import FileResponse
 import mimetypes
+import uvicorn
+import uvicorn.logging
+import uvicorn.loops
+import uvicorn.loops.auto
+import uvicorn.protocols
+import uvicorn.protocols.http
+import uvicorn.protocols.http.auto
+import uvicorn.protocols.websockets
+import uvicorn.protocols.websockets.auto
+import uvicorn.lifespan
+import uvicorn.lifespan.on
+
 
 # import io
 import os
@@ -19,7 +31,10 @@ import time
 from sshbox import SSHBoxClient
 from model import *
 
+import logging
 import logging.handlers
+
+
 logger = logging.getLogger('log')
 logger.setLevel(logging.DEBUG)
 
@@ -308,7 +323,7 @@ def load_config(config_path):
 
 
 if __name__ == '__main__':
-    import uvicorn
+
 
     load_config('./config.json')
     logger.info("")
@@ -341,4 +356,4 @@ if __name__ == '__main__':
         allow_headers=["*"],
     )
 
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port, access_log=False)
