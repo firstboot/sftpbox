@@ -1,6 +1,6 @@
 # ![](https://note.youdao.com/yws/public/resource/deabc23357bd1170b455d63089114edc/xmlnote/BF7F78B632994C2787A523F20E143990/29938)SftpBox（SFTP Box）
 
-| [Enlish]() | [中文版]() |
+| [Enlish](https://github.com/firstboot/sftpbox) | [中文版](https://github.com/firstboot/sftpbox/blob/master/README_CN.md) |
 
 ###  1. Introduction
 
