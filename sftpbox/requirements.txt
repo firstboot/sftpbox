@@ -14,5 +14,5 @@ pytz==2020.1
 six==1.15.0
 spyne==2.12.16
 starlette==0.13.2
-uvicorn==0.11.3
+uvicorn==0.11.7
 websockets==8.1
